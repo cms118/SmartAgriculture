@@ -82,6 +82,7 @@
                 android:textSize="20dp"/>
 
             <Button
+
                 android:id="@+id/signUp"
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
