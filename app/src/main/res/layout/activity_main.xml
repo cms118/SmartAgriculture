@@ -9,7 +9,7 @@
     android:layout_margin="10dp"
     tools:context="com.example.shiva.smartagriculture.MainActivity">
 
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -97,8 +97,27 @@
 
         </com.google.android.gms.common.SignInButton>
 
-    </LinearLayout>
+    </LinearLayout>-->
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Samrt Agriculture Assistant"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:padding="25dp"
+        android:shadowColor="@color/cardview_dark_background"
+        />
 
+    <com.google.android.gms.common.SignInButton
+
+        android:layout_centerInParent="true"
+        android:id="@+id/signInButton"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content">
+
+    </com.google.android.gms.common.SignInButton>
 
 </RelativeLayout>

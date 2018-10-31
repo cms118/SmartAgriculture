@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,10 +16,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.shiva.smartagriculture.MainActivity;
 import com.example.shiva.smartagriculture.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,7 @@ public class navigationActivity extends AppCompatActivity
 
     private static final int CAMERA_PIC_REQUEST = 1;
     private List<Items> itemsList;
+    private String name;
 
 
     @Override
@@ -38,6 +40,9 @@ public class navigationActivity extends AppCompatActivity
         setContentView(R.layout.activity_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Bundle extras = getIntent().getExtras();
+        name = extras.getString("name");
 
         itemsList = new ArrayList<>();
         itemsList.add(new Items("Crop Prediction",R.drawable.img1));
@@ -72,6 +77,10 @@ public class navigationActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        TextView nameToDisplay = (TextView)findViewById(R.id.smarttext);
+        Toast.makeText(this,"Name "+name,Toast.LENGTH_LONG).show();
+        //nameToDisplay.setText(name);
     }
 
     final int REQUEST_IMAGE_CAPTURE = 1;
@@ -90,6 +99,10 @@ public class navigationActivity extends AppCompatActivity
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             if(imageBitmap!=null)
             Toast.makeText(this,"show",Toast.LENGTH_LONG).show();
+
+            HttpRequestFromFlask httpRequestFromFlask = new HttpRequestFromFlask(this,imageBitmap);
+            httpRequestFromFlask.execute();
+
         }
     }
 
@@ -121,6 +134,10 @@ public class navigationActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
             return true;
         }
 
@@ -133,13 +150,13 @@ public class navigationActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.profile) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.next_step) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.statistics) {
+
+        } else if (id == R.id.run_a_demo) {
 
         } else if (id == R.id.nav_share) {
 
